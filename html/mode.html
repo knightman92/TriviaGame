@@ -1,0 +1,44 @@
+<html>
+<head>
+	<!-- Meta -->
+    <meta charset="UTF-8"/>
+    <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>Choose Mode</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/icon.ico"/>
+    <!-- CSS -->
+    <link rel="stylesheet" media="all" type="text/css" href="scss/style.css"/>
+    <!-- Typekit, Google Analytics, jQuery, FitVids -->
+    <!-- jQuery -->
+    <script src="js/jquery-3.2.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".hamburger").click(function(){
+                $(this).toggleClass("is-active");
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="nav">
+        <!-- animation CSS from http://codepen.io/RRoberts/pen/ZBYaJr -->
+        <div class="menuwrapper">
+	        <div class="hamburger" id="hamburger-1">
+	            <span class="line"></span>
+	            <span class="line"></span>
+	            <span class="line"></span>
+	        </div>
+        </div>
+        <a href="index.html" class="logo">Trivia Game</a>
+    </div>
+
+	<div class="contain half mode-screen">
+	    <!--<img src="http://placehold.it/350x300?text=LOGO+GOES+HERE" alt="Logo" class="logo">-->
+	    <a href="choosetopic.html" class="button full singleplayer">Single player</a>
+	    <a href="choosetopic.html" class="button full multiplayer">Multi-player</a>
+    </div>
+
+    
+</body>
+</html>

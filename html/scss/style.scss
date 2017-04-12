@@ -1,0 +1,377 @@
+@import "basic/variables";
+@import "basic/mixins";
+@import "basic/reformat";
+@import "basic/backbone";
+
+// @import "sections/";
+
+.contain {
+	display: block;
+	width: auto;
+	margin: 0 auto;
+}
+.contain.full {
+	// width: 50%;
+	padding: 1rem;
+
+	@include respond(600px) {
+		width: auto;
+		// padding: 1rem;
+	}
+}
+.contain.half {
+	width: 50%;
+	padding: 1rem;
+
+	@include respond(600px) {
+		width: auto;
+		// padding: 1rem;
+	}
+}
+.contain.login-screen {
+	max-width: 400px;
+	display: block;
+}
+.contain.mode-screen {
+	@extend .contain.login-screen;
+}
+.contain.topic-screen {
+	@extend .contain.login-screen;
+}
+.contain.game-screen {
+	@extend .contain.login-screen;
+	max-width: 550px;
+}
+.contain.results-screen {
+	@extend .contain.login-screen;
+}
+
+p {
+	a {
+		color: $blue;
+
+		&:hover {
+			color: darken($blue, 5);
+		}
+	}
+}
+
+.nav {
+	width: auto;
+	padding: 1rem;
+	background: $blue;
+	// margin-bottom: 1rem;
+
+	.menuwrapper {
+		// width: 50px;
+		// margin-left: 1rem;
+		// margin-right: 1rem;
+		float: left;
+		display: inline-block;
+		// margin-right: -70px;
+
+		.hamburger {
+			// padding-top: 0.3rem;
+			margin-top: -2px;
+		}
+	}
+	.logo {
+		color: $white;
+		font: 1.25rem $sans;
+		padding: 0.05rem 0 0;
+		text-align: center;
+		margin-left: -30px;
+	}
+}
+
+// menu
+// animation CSS from http://codepen.io/RRoberts/pen/ZBYaJr
+.hamburger .line{
+	width: 30px;
+	height: 3px;
+	background-color: $white;
+	display: block;
+	margin: 5px auto;
+	@include border-radius(3px);
+	@include default-transition;
+}
+.hamburger:hover{
+	cursor: pointer;
+}
+
+#hamburger-1.is-active .line:nth-child(2){
+	opacity: 0;
+}
+#hamburger-1.is-active .line:nth-child(1){
+	-webkit-transform: translateY(8px) rotate(45deg);
+	-ms-transform: translateY(8px) rotate(45deg);
+	-o-transform: translateY(8px) rotate(45deg);
+	transform: translateY(8px) rotate(45deg);
+}
+#hamburger-1.is-active .line:nth-child(3){
+	-webkit-transform: translateY(-8px) rotate(-45deg);
+	-ms-transform: translateY(-8px) rotate(-45deg);
+	-o-transform: translateY(-8px) rotate(-45deg);
+	transform: translateY(-8px) rotate(-45deg);
+}
+
+
+h1.pagetitle {
+	text-align: center;
+	margin: 1rem auto 1.9rem;
+	font-size: 1.85rem;
+}
+
+.logo {
+	width: 100%;
+	margin: 0 auto;
+	display: block;
+}
+
+.button {
+	background: $blue;
+	color: $white;
+	padding: 1rem 0.5rem 0.9rem;
+	@include border-radius(3px);
+	@include border-box;
+	@include default-transition;
+
+	&:hover {
+		background: darken(blue, 5);
+	}
+}
+.button.full {
+	display: block;
+	width: 100%;
+	margin: 1rem auto;
+	text-align: center;
+}
+.button.signup, .button.login {
+	width: 100%;
+}
+
+
+
+ul.topics {
+	@include plainul;
+	margin: 0;
+
+	a {
+		display: block;
+		background: $gray;
+		padding: 1.5rem;
+		margin: 0 0 1rem 0;
+		@include default-transition;
+
+		&:hover {
+			background: darken($gray, 5);
+		}
+
+		h2 {
+			margin-top: 0;
+			margin-bottom: 0;
+			font-size: 1.4rem;
+		}
+		p {
+			margin-top: 0.5rem;
+			margin-bottom: 0;
+		}
+	}
+	li:last-of-type {
+		a {
+			margin-bottom: 0;
+		}
+	}
+}
+
+
+.gameicons {
+	font-size: 1.25rem;
+
+	div {
+		width: 33.333333%;
+		display: inline-block;
+		float: left;
+	}
+
+	.numcorrect {
+		text-align: left;
+	}
+	.questiontracker {
+		text-align: center;
+	}
+	.questiondifficulty {
+		text-align: right;
+	}
+}
+
+.multichoice {
+	width: 70%;
+	margin: 2rem auto 0;
+
+	@include respond(600px) {
+		width: auto;
+	}
+
+	ul {
+		@include plainul;
+		margin: 0;
+		padding: 0;
+
+		li {
+			clear: both;
+			padding: 1rem 0;
+			display: block;
+
+			a {
+				display: block;
+				// margin: 1rem 0;
+
+				.circle {
+					height: 1.5rem;
+					width: 1.5rem;
+					background: darken($gray,5);
+					@include default-transition;
+					@include border-radius(30px);
+					display: inline-block;
+					float: left;
+
+					&:hover {
+						background: $blue;
+					}
+
+					&:active {
+						background: $gray;
+						border: 7px solid $blue;
+						@include border-box;
+					}
+				}
+				.circle.is-active {
+					background: $gray;
+					border: 7px solid $blue;
+					@include border-box;
+				}
+				.answer {
+					// display: inline-block;
+					// float: left;
+					padding-top: 0.05rem;
+					padding-left: 2.25rem;
+				}
+			}
+		}
+		li:first-of-type {
+			padding-top: 0;
+		}
+	}
+}
+
+ul.results {
+	@include plainul;
+
+	li {
+		background: $gray;
+		padding: 1.5rem;
+		margin: 0 0 1rem 0;
+
+		h3 {
+			margin: 0;
+		}
+		h4 {
+			padding-left: 1.5rem;
+			margin: 1rem 0 0;
+
+			span {
+				font-size: 1rem;
+			}
+		}
+		h4.incorrect {
+			color: $red;
+		}
+		h4.correct {
+			color: $green;
+		}
+	}
+}
+
+.modal {
+	display: block;
+    position: absolute;
+    top: 4.25rem;
+    background: $white;
+    border: 1px solid darken($gray,20);
+    @include border-radius(3px);
+    @include border-box;
+    width: 460px;
+    padding: 0rem 0 3rem;
+    position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+
+	@include respond(600px) {
+		width: auto;
+		margin: 0.5rem 0.5rem 0;
+		padding: 0 0 3.5rem 0;
+		top: 3.5rem;
+	}
+
+	.close {
+		float: right;
+		margin-bottom: 2rem;
+		font-size: 1.5rem;
+		color: #a5a3a3;
+		display: block;
+		// margin-right: -66px;
+		margin: 1rem 1rem 0 0;
+
+		// @include respond(600px) {
+		// 	margin-right: 0;
+		// }
+	}
+
+    form {
+    	margin: 0 auto;
+    	padding: 1rem;
+    	max-width: 270px;
+
+    	@include respond(600px) {
+    		max-width: 270px;
+    		margin: 0 auto;
+    	}
+
+    	h2 {
+    		margin: 0 0 1.25rem;
+    	}
+
+    	label {
+			clear: left;
+		    display: inline-block;
+		    width: 80px;
+    	}
+    	input {
+    		background: none;
+    		border: 1px solid darken($gray,20);
+    		// @include border-radius(3px);
+    		font-size: 1rem;
+    		color: darken($gray, 55);
+    		padding: .5rem .5rem;
+    		@include border-box;
+    		margin-bottom: .5rem;
+
+    		&:last-of-type {
+    			margin-bottom: 0;
+    		}
+    	}
+    	button {
+    		@extend .button;
+    		border: 0;
+    		font-size: 1rem;
+    		padding: .75rem 1rem;
+    		// text-align: center;
+    		display: block;
+    		margin: 1rem auto 0;
+    		cursor: pointer;
+    	}
+    }
+}

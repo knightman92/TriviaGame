@@ -1,0 +1,96 @@
+<html>
+<head>
+	<!-- Meta -->
+    <meta charset="UTF-8"/>
+    <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>Home</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/icon.ico"/>
+    <!-- CSS -->
+    <link rel="stylesheet" media="all" type="text/css" href="scss/style.css"/>
+    <!-- Typekit, Google Analytics, jQuery, FitVids -->
+    <!-- jQuery -->
+    <script src="js/jquery-3.2.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".hamburger").click(function(){
+                $(this).toggleClass("is-active");
+            });
+        });
+        function closeModal() {
+            toggle_visibility("modal");
+            if ($("#form-signup").css("display") == "none") {
+                toggle_visibility("form-login");
+            } else {
+                toggle_visibility("form-signup");
+            }
+        }
+        function toggleSignup() {
+            toggle_visibility("modal");
+            toggle_visibility("form-signup");
+        }
+        function toggleLogin() {
+            toggle_visibility("modal");
+            toggle_visibility("form-login");
+        }
+        // Toggle display
+        function toggle_visibility(id) {
+            var e = document.getElementById(id);
+            e.style.display = ((e.style.display!=='none') ? 'none' : 'block');
+        }
+    </script>
+</head>
+<body>
+    <div class="nav">
+        <!-- animation CSS from http://codepen.io/RRoberts/pen/ZBYaJr -->
+        <div class="menuwrapper">
+            <div class="hamburger" id="hamburger-1">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
+        </div>
+        <a href="index.html" class="logo">Trivia Game</a>
+    </div>
+
+    <div class="contain half login-screen">
+        <img src="http://placehold.it/350x300?text=LOGO+GOES+HERE" alt="Logo" class="logo">
+        <a href="javascript:void();" onclick="toggleLogin();" class="button full login">Log in</a>
+        <a href="javascript:void();" onclick="toggleSignup();" class="button full signup">Sign up</a>
+    </div>
+
+    <div class="modal" id="modal" style="display:none;">
+        <a class="close" id="closemodal" href="javascript:void();" onclick="closeModal();">&#10005;</a>
+        <form action="mode.html" id="form-signup" style="display:none;">
+            <div class="clearb"></div>
+            <h2>Sign up</h2>
+            <label>First name</label>
+            <input type="text" class="firstname" value="Ben" name="firstname">
+            <label>Last name</label>
+            <input type="text" class="lastname" value="Stankich" name="lastname">
+            <label>Username</label>
+            <input type="text" class="username" value="benstankich" name="username">
+            <label>Password</label>
+            <input type="password" class="password" value="" name="password">
+            <button>Create account</button>
+            <div class="clearb"></div>
+        </form>
+        <div class="clearb"></div>
+
+        <form action="mode.html" id="form-login" style="display:none;">
+            <!-- <a class="close" id="closelogin" href="javascript:void();" onclick="toggleLogin();">&#10005;</a> -->
+            <div class="clearb"></div>
+            <h2>Log in</h2>
+            <label>Username</label>
+            <input type="text" class="username" value="benstankich" name="username">
+            <label>Password</label>
+            <input type="password" class="password" value="" name="password">
+            <button>Log in</button>
+        </form>
+        <div class="clearb"></div>
+    </div>
+    
+	
+</body>
+</html>

@@ -1,0 +1,95 @@
+.section {
+	background-repeat: no-repeat;
+	background-position: center center;
+	max-width: 100%;
+	background: $black;
+}
+#sectionpassion {
+	background: $purple;
+	background-image: url(images/passion_background.jpg);
+	background-repeat: repeat;
+	// background-position: center 20%;
+
+	.wrap {
+		@include wrap;
+		padding: 2% 0;
+		max-width: 1000px;
+	}
+}
+#sectionhighlight {
+	background: $lessblack;
+
+	.sectionheading {
+		@include sectionheading($white, 4%);
+	}
+}
+#sectionphilosophies {
+	background: $white;
+	// padding-top: 79px;
+}
+#sectionbreakouts {
+	background: $red;
+}
+#sectionworkshops {
+	background: $white;
+
+	.wrap {
+		@include wrap;
+		width: 92%;
+		padding: 4%;
+		padding-top: 2%;
+		max-width: 1500px;
+	}
+	.sectionheading {
+		@include sectionheading($black, 6%);
+	}
+}
+#footer {
+	background: $lessblack;
+}
+
+.wrap {
+	max-width: 1800px; //1200px usually like all others
+	width: 94%;
+	margin: 0 auto;
+	padding: 4% 0;
+}
+.wrapfull {
+	max-width: 1800px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 4% 0;
+}
+.sectionheading {
+	@include sectionheading($black,4%);
+	font-size: 3.125em;
+	font-weight: 700;
+	text-transform: uppercase;
+	text-align: center;
+	padding-bottom: 4%;
+	color: $black;
+	line-height: 72%;
+	margin: 0;
+
+	@include respond(mobile) {
+		padding-bottom: 10%;
+	}
+}
+
+
+@media screen and (max-width: $break-small) {
+	.wrap, .wrapfull {
+		width: 94%;
+		margin: 0 auto;
+		padding: 10% 0 4% 0;
+	}
+	#wrapbreakouts {
+		padding: 10% 0;
+	}
+}
+
+@media screen and (min-width: 320px) and (max-width: $break-small) {
+	.sectionheading, #sectionhighlight .sectionheading, #sectiontheme .sectionheading {
+		font-size: 2em;
+	}
+}
