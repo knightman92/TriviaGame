@@ -12,13 +12,7 @@
     <!-- Typekit, Google Analytics, jQuery, FitVids -->
     <!-- jQuery -->
     <script src="js/jquery-3.2.0.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $(".hamburger").click(function(){
-                $(this).toggleClass("is-active");
-            });
-        });
-    </script>
+    <script src="js/functions.js"></script>
 </head>
 <body>
     <div class="nav">
@@ -31,6 +25,13 @@
 	        </div>
         </div>
         <a href="index.html" class="logo">Trivia Game</a>
+    </div>
+    <div class="menu" id="menu">
+        <ul>
+            <li><a href="profile.html">Account Profile</a></li>
+            <li><a href="javascript:void();">Turn Sound on</a></li>
+            <li><a href="index.html">Log out</a></li>
+        </ul>
     </div>
 
 	<div class="contain half topic-screen">

@@ -12,34 +12,7 @@
     <!-- Typekit, Google Analytics, jQuery, FitVids -->
     <!-- jQuery -->
     <script src="js/jquery-3.2.0.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $(".hamburger").click(function(){
-                $(this).toggleClass("is-active");
-            });
-        });
-        function closeModal() {
-            toggle_visibility("modal");
-            if ($("#form-signup").css("display") == "none") {
-                toggle_visibility("form-login");
-            } else {
-                toggle_visibility("form-signup");
-            }
-        }
-        function toggleSignup() {
-            toggle_visibility("modal");
-            toggle_visibility("form-signup");
-        }
-        function toggleLogin() {
-            toggle_visibility("modal");
-            toggle_visibility("form-login");
-        }
-        // Toggle display
-        function toggle_visibility(id) {
-            var e = document.getElementById(id);
-            e.style.display = ((e.style.display!=='none') ? 'none' : 'block');
-        }
-    </script>
+    <script src="js/functions.js"></script>
 </head>
 <body>
     <div class="nav">
@@ -52,6 +25,13 @@
             </div>
         </div>
         <a href="index.html" class="logo">Trivia Game</a>
+    </div>
+    <div class="menu" id="menu">
+        <ul>
+            <li><a href="profile.html">Account Profile</a></li>
+            <li><a href="javascript:void();">Turn Sound on</a></li>
+            <li><a href="index.html">Log out</a></li>
+        </ul>
     </div>
 
     <div class="contain half login-screen">

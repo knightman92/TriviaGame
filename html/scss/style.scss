@@ -45,6 +45,9 @@
 .contain.results-screen {
 	@extend .contain.login-screen;
 }
+.contain.profile-screen {
+	@extend .contain.login-screen;
+}
 
 p {
 	a {
@@ -61,6 +64,8 @@ p {
 	padding: 1rem;
 	background: $blue;
 	// margin-bottom: 1rem;
+	z-index: 1;
+	position: relative;
 
 	.menuwrapper {
 		// width: 50px;
@@ -113,6 +118,38 @@ p {
 	-ms-transform: translateY(-8px) rotate(-45deg);
 	-o-transform: translateY(-8px) rotate(-45deg);
 	transform: translateY(-8px) rotate(-45deg);
+}
+
+.menu {
+	background: lighten($blue,10);
+	// margin-top: -1rem;
+	// margin-bottom: -1rem;
+	@include default-transition;
+	height: 0;
+	padding: 0;
+	z-index: 0;
+	position: relative;
+
+	ul {
+		display: none;
+	}
+}
+.menu.is-active {
+	// margin-top: 0rem;
+	height: auto;
+	display: block;
+	padding: 1rem;
+
+	ul {
+		@include plainul;
+		display: block;
+		margin: 0;
+		
+		li {
+			color: $white;
+			text-align: center;
+		}
+	}
 }
 
 

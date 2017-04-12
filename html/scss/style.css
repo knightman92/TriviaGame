@@ -173,7 +173,7 @@ strong, b {
     .contain.half {
       width: auto; } }
 
-.contain.login-screen, .contain.mode-screen, .contain.topic-screen, .contain.game-screen, .contain.results-screen {
+.contain.login-screen, .contain.mode-screen, .contain.topic-screen, .contain.game-screen, .contain.results-screen, .contain.profile-screen {
   max-width: 400px;
   display: block; }
 
@@ -188,7 +188,9 @@ p a {
 .nav {
   width: auto;
   padding: 1rem;
-  background: #445eef; }
+  background: #445eef;
+  z-index: 1;
+  position: relative; }
   .nav .menuwrapper {
     float: left;
     display: inline-block; }
@@ -232,6 +234,31 @@ p a {
   -ms-transform: translateY(-8px) rotate(-45deg);
   -o-transform: translateY(-8px) rotate(-45deg);
   transform: translateY(-8px) rotate(-45deg); }
+
+.menu {
+  background: #7386f3;
+  -webkit-transition: all 0.1s ease-in-out;
+  -o-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  height: 0;
+  padding: 0;
+  z-index: 0;
+  position: relative; }
+  .menu ul {
+    display: none; }
+
+.menu.is-active {
+  height: auto;
+  display: block;
+  padding: 1rem; }
+  .menu.is-active ul {
+    padding: 0;
+    list-style-type: none;
+    display: block;
+    margin: 0; }
+    .menu.is-active ul li {
+      color: #fff;
+      text-align: center; }
 
 h1.pagetitle {
   text-align: center;
