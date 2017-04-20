@@ -13,8 +13,17 @@
     <!-- jQuery -->
     <script src="js/jquery-3.2.0.min.js"></script>
     <script src="js/functions.js"></script>
+    <script type="text/javascript">
+        var numCorrectUser1 = 0;
+        var numCorrectUser2 = 0;
+        var currentQuestion = 1;
+        var firstName;
+        var lastName;
+        var username;
+        var password;
+    </script>
 </head>
-<body>
+<body id="body" data-set="user1">
     <div class="nav">
         <!-- animation CSS from http://codepen.io/RRoberts/pen/ZBYaJr -->
         <div class="menuwrapper">
@@ -28,46 +37,1023 @@
     </div>
     <div class="menu" id="menu">
         <ul>
-            <li><a href="profile.html">Account Profile</a></li>
-            <li><a href="javascript:void();">Turn Sound on</a></li>
-            <li><a href="index.html">Log out</a></li>
+            <li><a href="javascript:toggleProfile();">Account Profile</a></li>
+            <li><a href="javascript:toggleSound();" id="sound-state">Turn Sound on</a></li>
         </ul>
     </div>
 
-    <div class="contain half login-screen">
+    <div class="contain half profile-screen" id="page-profile" style="display:none;">
+        <h1 class="pagetitle">User profile</h1>
+        <p>First name: <span id="profile-first"></span></p>
+        <p>Last name: <span id="profile-last"></span></p>
+        <p>Username: <span id="profile-username"></span></p>
+        <p>Password: <span id="profile-password"></span></p>
+        <p>Points: <span id="profile-points"></span></p>
+    </div>
+
+    <div class="contain half login-screen" style="display:block;" id="page-index">
         <img src="http://placehold.it/350x300?text=LOGO+GOES+HERE" alt="Logo" class="logo">
         <a href="javascript:void();" onclick="toggleLogin();" class="button full login">Log in</a>
         <a href="javascript:void();" onclick="toggleSignup();" class="button full signup">Sign up</a>
     </div>
 
+    <div class="contain half mode-screen" style="display:none;" id="page-mode">
+        <!--<img src="http://placehold.it/350x300?text=LOGO+GOES+HERE" alt="Logo" class="logo">-->
+        <a href="javascript:void();" onclick="toggleChooseTopic();" class="button full singleplayer">Single player</a>
+        <a href="javascript:void();" onclick="toggleChooseTopic();" class="button full multiplayer">Multi-player</a>
+    </div>
+
+    <div class="contain half topic-screen" id="page-choosetopic" style="display:none;">
+        <h1 class="pagetitle">Choose a Topic</h1>
+        <ul class="topics">
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame(); toggleBiology();">
+                    <h2>Biology 1</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Calculus 1</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Calculus 2</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame(); toggleChemistry();">
+                    <h2>Chemistry 1</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>College Algebra</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Physics 1</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Physics 2</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Physics 3</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Processes for Object-Oriented Development</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Programming Languages</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>U.S. History</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="contain half game-screen" id="page-game" style="display:none;">
+        <div class="gameicons">
+            <div class="numcorrect" id="numcorrect">0 ✔</div>
+            <div class="questiontracker" id="questiontracker">#1 of 20</div>
+            <div class="questiondifficulty" id="questiondiffculty">Hard</div>
+            <br><br>
+        </div>
+
+        <!-- <div class="questionset">
+            <div class="question">
+                <h2>How many chucks can a wood chuck chuck if a wood chuck could chuck wood?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set1Question1" data-answer="1"></div>
+                        <div class="answer">About 50</div>
+                    </li>
+                    <li>
+                        <div class="circle" data-set="set1Question1" data-answer="2"></div>
+                        <div class="answer">At least 12</div>
+                    </li>
+                    <li>
+                        <div class="circle" data-set="set1Question1" data-answer="3"></div>
+                        <div class="answer">47 if you count the one time my cousin's wood chuck wood chucked</div>
+                    </li>
+                    <li>
+                        <div class="circle" data-set="set1Question1" data-answer="4"></div>
+                        <div class="answer">More than 89</div>
+                    </li>
+                </ul>
+            </div>
+        </div> -->
+
+        <div class="questionset" id="questions-bio" style="display:none;">
+            <div class="question" id="set1Question1" style="display:block;">
+                <h2>Which are the most common elements found in mass?</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question1" data-answer="1"></div>
+                    <div class="answer">Carbon, Nitrogen, Oxygen, and Hydrogen</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question1" data-answer="2"></div>
+                    <div class="answer">Carbon, Phosphorus, Hydrogen, Nitrogen</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question1" data-answer="3"></div>
+                    <div class="answer">Oxygen, Helium, Hydrogen, Carbon</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question1" data-answer="4"></div>
+                    <div class="answer">Hydrogen, Helium, Phosphorus, Silver</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question2" style="display:none;">
+                <h2>Isotopes of the same element differ in which of the following?</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question2" data-answer="1"></div>
+                    <div class="answer">Atomic Mass</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question2" data-answer="2"></div>
+                    <div class="answer">Atomic Number</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question2" data-answer="3"></div>
+                    <div class="answer">Electrons</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question2" data-answer="4"></div>
+                    <div class="answer">Protons</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question3" style="display:none;">
+                <h2>This energy is associated with the relative motion of objects.</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question3" data-answer="1"></div>
+                    <div class="answer">Kinetic Energy</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question3" data-answer="2"></div>
+                    <div class="answer">Thermal Energy</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question3" data-answer="3"></div>
+                    <div class="answer">Potential Energy</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question3" data-answer="4"></div>
+                    <div class="answer">Light Energy</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question4" style="display:none;">
+                <h2>Which of the following is NOT a lipid?</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question4" data-answer="1"></div>
+                    <div class="answer">Protein</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question4" data-answer="2"></div>
+                    <div class="answer">Fatty Acid</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question4" data-answer="3"></div>
+                    <div class="answer">Phospholipid</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question4" data-answer="4"></div>
+                    <div class="answer">Trans-Fat</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question5" style="display:none;">
+                <h2>Which of the following nitrogenous bases is NOT found in RNA?</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question5" data-answer="1"></div>
+                    <div class="answer">Thymine</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question5" data-answer="2"></div>
+                    <div class="answer">Adenine</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question5" data-answer="3"></div>
+                    <div class="answer">Uracil</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question5" data-answer="4"></div>
+                    <div class="answer">Guanine</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question6" style="display:none;">
+                <h2>Which of the following bonds between bases is correct?</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question6" data-answer="1"></div>
+                    <div class="answer">A-T</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question6" data-answer="2"></div>
+                    <div class="answer">A-A</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question6" data-answer="3"></div>
+                    <div class="answer">G-U</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question6" data-answer="4"></div>
+                    <div class="answer">C-T</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question7" style="display:none;">
+                <h2>Elements that are essential in life but are present only in minute amounts.</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question7" data-answer="1"></div>
+                    <div class="answer">Trace Elements</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question7" data-answer="2"></div>
+                    <div class="answer">Mineral Elements</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question7" data-answer="3"></div>
+                    <div class="answer">Halogens</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question7" data-answer="4"></div>
+                    <div class="answer">Alkali Metals</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question8" style="display:none;">
+                <h2>This is the final electron receptor in the electron transport chain.</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question8" data-answer="1"></div>
+                    <div class="answer">Oxygen</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question8" data-answer="2"></div>
+                    <div class="answer">ATP</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question8" data-answer="3"></div>
+                    <div class="answer">Carbon Dioxide</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question8" data-answer="4"></div>
+                    <div class="answer">NADH</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question9" style="display:none;">
+                <h2>In cell division, this is the phase where chromosomes line up along the center of the cell.</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question9" data-answer="1"></div>
+                    <div class="answer">Metaphase</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question9" data-answer="2"></div>
+                    <div class="answer">Anaphase</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question9" data-answer="3"></div>
+                    <div class="answer">Interphase</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question9" data-answer="4"></div>
+                    <div class="answer">Prophase</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question10" style="display:none;">
+                <h2>Cell division where two identical cells are formed.</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question10" data-answer="1"></div>
+                    <div class="answer">Mitosis</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question10" data-answer="2"></div>
+                    <div class="answer">Meiosis</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question10" data-answer="3"></div>
+                    <div class="answer">Cytokinesis</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question10" data-answer="4"></div>
+                    <div class="answer">Cellular Respiration</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question11" style="display:none;">
+                <h2>How many sex cells are formed from one cell during meiosis?</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question11" data-answer="1"></div>
+                    <div class="answer">4</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question11" data-answer="2"></div>
+                    <div class="answer">8</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question11" data-answer="3"></div>
+                    <div class="answer">2</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question11" data-answer="4"></div>
+                    <div class="answer">6</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question12" style="display:none;">
+                <h2>Which of the following is NOT a part of a eukaryotic cell's life cycle?</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question12" data-answer="1"></div>
+                    <div class="answer">Translation</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question12" data-answer="2"></div>
+                    <div class="answer">Interphase</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question12" data-answer="3"></div>
+                    <div class="answer">Mitosis</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question12" data-answer="4"></div>
+                    <div class="answer">Cytokinesis</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question13" style="display:none;">
+                <h2>These are special microtubules made of proteins which connect to chromosomes.</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question13" data-answer="1"></div>
+                    <div class="answer">Spindle Fibers</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question13" data-answer="2"></div>
+                    <div class="answer">Centromeres</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question13" data-answer="3"></div>
+                    <div class="answer">Chromatids</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question13" data-answer="4"></div>
+                    <div class="answer">Eggs</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question14" style="display:none;">
+                <h2>Which of the following is NOT a level of biological organization?</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question14" data-answer="1"></div>
+                    <div class="answer">Electrons</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question14" data-answer="2"></div>
+                    <div class="answer">Cells</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question14" data-answer="3"></div>
+                    <div class="answer">Ecosystem</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question14" data-answer="4"></div>
+                    <div class="answer">Populations</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question15" style="display:none;">
+                <h2>Which of the following is NOT a level of protein structure.</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question15" data-answer="1"></div>
+                    <div class="answer">Nonary</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question15" data-answer="2"></div>
+                    <div class="answer">Tertiary</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question15" data-answer="3"></div>
+                    <div class="answer">Primary</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question15" data-answer="4"></div>
+                    <div class="answer">Quaternary</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question16" style="display:none;">
+                <h2>Which of the following is NOT a product of the Krebs Cycle?</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question16" data-answer="1"></div>
+                    <div class="answer">Oxygen</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question16" data-answer="2"></div>
+                    <div class="answer">ATP</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question16" data-answer="3"></div>
+                    <div class="answer">Carbon Dioxide</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question16" data-answer="4"></div>
+                    <div class="answer">Hydrogen</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question17" style="display:none;">
+                <h2>Inserting or deleting a nucleotide in a sequence can cause this.</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question17" data-answer="1"></div>
+                    <div class="answer">Frameshift Mutation</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question17" data-answer="2"></div>
+                    <div class="answer">Silent Mutation</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question17" data-answer="3"></div>
+                    <div class="answer">Nonsense Mutation</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question17" data-answer="4"></div>
+                    <div class="answer">No Mutation</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question18" style="display:none;">
+                <h2>What is the smallest unit of matter that retains the properties of an element?</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question18" data-answer="1"></div>
+                    <div class="answer">Atom</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question18" data-answer="2"></div>
+                    <div class="answer">Cell</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question18" data-answer="3"></div>
+                    <div class="answer">DNA</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question18" data-answer="4"></div>
+                    <div class="answer">Protein</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question19" style="display:none;">
+                <h2>Which of the following is NOT true for viruses?</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question19" data-answer="1"></div>
+                    <div class="answer">They are able to reproduce by themselves</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question19" data-answer="2"></div>
+                    <div class="answer">They are considered nonliving</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question19" data-answer="3"></div>
+                    <div class="answer">They cannot carry out metabolism by themselves</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question19" data-answer="4"></div>
+                    <div class="answer">They cannot reproduced by themselves.</div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set1Question20" style="display:none;">
+                <h2>The green pigment that absorbs sunlight.</h2>
+                <ul>
+                <li>
+                    <div class="circle is-correct" data-set="set1Question20" data-answer="1"></div>
+                    <div class="answer">Chlorophyll</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question20" data-answer="2"></div>
+                    <div class="answer">Chloroplasts</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question20" data-answer="3"></div>
+                    <div class="answer">Cytoplasm</div>
+                </li>
+                <li>
+                    <div class="circle" data-set="set1Question20" data-answer="4"></div>
+                    <div class="answer">Carbon Dioxide</div>
+                </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="questionset" id="questions-chem" style="display:none;">
+            <div class="question" id="set2Question1" style="display:block;">
+                <h2>This scientist discovered the positively charged proton and the nucleus through the gold foil experiment.</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question1" data-answer="1"></div>
+                        <div class="answer">Ernest Rutherford</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question1" data-answer="2"></div>
+                        <div class="answer">James Chadwick</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question1" data-answer="3"></div>
+                        <div class="answer">Robert Millikan</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question1" data-answer="4"></div>
+                        <div class="answer">J.J Thompson</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question2" style="display:none;">
+                <h2>Which of the following is NOT named correctly?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question2" data-answer="1"></div>
+                        <div class="answer">K2CO3 is dipotassium carbonate</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question2" data-answer="2"></div>
+                        <div class="answer">NaCl is sodium chloride</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question2" data-answer="3"></div>
+                        <div class="answer">SnO2 is tin (IV) oxide</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question2" data-answer="4"></div>
+                        <div class="answer">Br2Cl5 is dibromine pentachloride</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question3" style="display:none;">
+                <h2>Which of the following is a reactive nonmetal?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question3" data-answer="1"></div>
+                        <div class="answer">Bromine</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question3" data-answer="2"></div>
+                        <div class="answer">Calcium</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question3" data-answer="3"></div>
+                        <div class="answer">Boron</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question3" data-answer="4"></div>
+                        <div class="answer">Xenon</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question4" style="display:none;">
+                <h2>Solids and liquids share the property of</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question4" data-answer="1"></div>
+                        <div class="answer">Definite Volume</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question4" data-answer="2"></div>
+                        <div class="answer">Definite Shape</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question4" data-answer="3"></div>
+                        <div class="answer">Compressibility</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question4" data-answer="4"></div>
+                        <div class="answer">Resistance to flow</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question5" style="display:none;">
+                <h2>What is the chemical formula for the compound that forms from the attraction of aluminum ions and sulfide?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question5" data-answer="1"></div>
+                        <div class="answer">Al2S3</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question5" data-answer="2"></div>
+                        <div class="answer">AlS</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question5" data-answer="3"></div>
+                        <div class="answer">Al3S2</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question5" data-answer="4"></div>
+                        <div class="answer">AlS2</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question6" style="display:none;">
+                <h2>Which of the following aqueous solutions would precipitate silver when added to AgNO3 solution?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question6" data-answer="1"></div>
+                        <div class="answer">KCl</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question6" data-answer="2"></div>
+                        <div class="answer">NaNO3</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question6" data-answer="3"></div>
+                        <div class="answer">Ca(C2H4O)2</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question6" data-answer="4"></div>
+                        <div class="answer">KNO3</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question7" style="display:none;">
+                <h2>Which of the following statements is NOT true?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question7" data-answer="1"></div>
+                        <div class="answer">H2SO4 is a nonelectrolyte</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question7" data-answer="2"></div>
+                        <div class="answer">KCl is a strong electrolyte</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question7" data-answer="3"></div>
+                        <div class="answer">HF is a weak electrolyte</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question7" data-answer="4"></div>
+                        <div class="answer">HCLO4 is a strong electrolyte</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question8" style="display:none;">
+                <h2>In which compound does manganese have the highest oxidation state?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question8" data-answer="1"></div>
+                        <div class="answer">Mn2O5</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question8" data-answer="2"></div>
+                        <div class="answer">Mn2O3</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question8" data-answer="3"></div>
+                        <div class="answer">MnO2</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question8" data-answer="4"></div>
+                        <div class="answer">MnO</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question9" style="display:none;">
+                <h2>Which of the following processes is exothermic?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question9" data-answer="1"></div>
+                        <div class="answer">Condensation of steam</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question9" data-answer="2"></div>
+                        <div class="answer">Melting ice in water</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question9" data-answer="3"></div>
+                        <div class="answer">Sweat evaporates from skin</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question9" data-answer="4"></div>
+                        <div class="answer">Baking bread</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question10" style="display:none;">
+                <h2>When dry ice sublimes to the gas phase</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question10" data-answer="1"></div>
+                        <div class="answer">the process is endothermic and heat is absorbed from the surroundings.</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question10" data-answer="2"></div>
+                        <div class="answer">the process is endothermic and heat is released to the surroundings.</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question10" data-answer="3"></div>
+                        <div class="answer">the process is exothermic and heat is absorbed from the surroundings.</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question10" data-answer="4"></div>
+                        <div class="answer">the process is exothermic and heat is released to the surroundings.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question11" style="display:none;">
+                <h2>Which of the following lists electromagnetic radiation in order of increasing energy?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question11" data-answer="1"></div>
+                        <div class="answer">Visible < UV < X-ray</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question11" data-answer="2"></div>
+                        <div class="answer">UV < IR < Microwave</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question11" data-answer="3"></div>
+                        <div class="answer">Microwve < Radio < IR</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question11" data-answer="4"></div>
+                        <div class="answer">Gamma < X-ray < UV</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question12" style="display:none;">
+                <h2>Which of the following shows atoms listed in order of increasing ionization energy?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question12" data-answer="1"></div>
+                        <div class="answer">Se < S < Cl</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question12" data-answer="2"></div>
+                        <div class="answer">F < O < N</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question12" data-answer="3"></div>
+                        <div class="answer">Sc < Sr < Cs</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question12" data-answer="4"></div>
+                        <div class="answer">K < Rb < Cs</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question13" style="display:none;">
+                <h2>The energy involved in gaining an electron is called</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question13" data-answer="1"></div>
+                        <div class="answer">Electron affinity</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question13" data-answer="2"></div>
+                        <div class="answer">Effective nuclear charge</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question13" data-answer="3"></div>
+                        <div class="answer">Ionization energy</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question13" data-answer="4"></div>
+                        <div class="answer">Metallic character</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question14" style="display:none;">
+                <h2>Which bond is nonpolar?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question14" data-answer="1"></div>
+                        <div class="answer">C-H</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question14" data-answer="2"></div>
+                        <div class="answer">N-H</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question14" data-answer="3"></div>
+                        <div class="answer">O-H</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question14" data-answer="4"></div>
+                        <div class="answer">F-H</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question15" style="display:none;">
+                <h2>Which of the following is an isoelectronic series listed with decreasing radius?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question15" data-answer="1"></div>
+                        <div class="answer">Se^2- > Br^1- > Kr</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question15" data-answer="2"></div>
+                        <div class="answer">Ca^2+ > K^1+ > Ar</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question15" data-answer="3"></div>
+                        <div class="answer">Cl > Br > I</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question15" data-answer="4"></div>
+                        <div class="answer">Ca^2+ > Sr^2+ > Ba^2+</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question16" style="display:none;">
+                <h2>Which of the following is likely to have the shortest bond?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question16" data-answer="1"></div>
+                        <div class="answer">Triple bond</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question16" data-answer="2"></div>
+                        <div class="answer">Double bond</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question16" data-answer="3"></div>
+                        <div class="answer">Single bond</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question16" data-answer="4"></div>
+                        <div class="answer">it cannot be determined</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question17" style="display:none;">
+                <h2>Which of the following compounds violate the octet rule?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question17" data-answer="1"></div>
+                        <div class="answer">NO2</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question17" data-answer="2"></div>
+                        <div class="answer">CH3Cl</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question17" data-answer="3"></div>
+                        <div class="answer">NF3</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question17" data-answer="4"></div>
+                        <div class="answer">NaCl</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question18" style="display:none;">
+                <h2>What angle is found between atoms with a molecular shape that is tetrahedral?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question18" data-answer="1"></div>
+                        <div class="answer">109.5</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question18" data-answer="2"></div>
+                        <div class="answer">90</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question18" data-answer="3"></div>
+                        <div class="answer">107</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question18" data-answer="4"></div>
+                        <div class="answer">120</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question19" style="display:none;">
+                <h2>A bent molecular shape is typical of molecules with which of the following found on the central atom?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question19" data-answer="1"></div>
+                        <div class="answer">2 bonds and 1 electron pair</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question19" data-answer="2"></div>
+                        <div class="answer">4 bonds</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question19" data-answer="3"></div>
+                        <div class="answer">2 bonds and 3 electron pairs</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question19" data-answer="4"></div>
+                        <div class="answer">3 bonds and 1 electron pair</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="question" id="set2Question20" style="display:none;">
+                <h2>What is the molecular shape of a molecule with 6 bonds to the central atom?</h2>
+                <ul>
+                    <li>
+                        <div class="circle is-correct" data-set="set2Question20" data-answer="1"></div>
+                        <div class="answer">Octahedral</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question20" data-answer="2"></div>
+                        <div class="answer">Linear</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question20" data-answer="3"></div>
+                        <div class="answer">Tetrahedral</div></li>
+                    <li>
+                        <div class="circle" data-set="set2Question20" data-answer="4"></div>
+                        <div class="answer">Square Pyramidal</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+    
+    <div class="contain half results-screen" id="page-results" style="display:none;">
+        <h1 class="pagetitle">Results</h1>
+
+        <p id="results-message">You answered 0 of 20 questions correctly.</p>
+        <p><a href="" target="_blank">Share your score</a> on Facebook.</p>
+
+        <div class="button" onclick="javascript:toggleRestart();">Start new game</div>
+        
+        <!-- <ul class="results">
+            <li>
+                <h3>Sample question numero uno?</h3>
+                <h4 class="incorrect"><span>&#x2715;</span> Abraham Lincoln</h4>
+                <h4 class="correct"><span>&#x2714;</span> George Washington</h4>
+            </li>
+            <li>
+                <h3>Sample question numero dos?</h3>
+                <h4 class="incorrect"><span>&#x2715;</span> 2014</h4>
+                <h4 class="correct"><span>&#x2714;</span> 2011</h4>
+            </li>
+            <li>
+                <h3>Sample question numero tres?</h3>
+                <h4 class="incorrect"><span>&#x2715;</span> A type of Italian food that is delicious</h4>
+                <h4 class="correct"><span>&#x2714;</span> A French dessert traditionally served with jalapenos</h4>
+            </li>
+        </ul> -->
+    </div>
+
+
     <div class="modal" id="modal" style="display:none;">
         <a class="close" id="closemodal" href="javascript:void();" onclick="closeModal();">&#10005;</a>
-        <form action="mode.html" id="form-signup" style="display:none;">
+        <div id="form-signup" style="display:none;">
+            <!-- action="mode.html" -->
             <div class="clearb"></div>
             <h2>Sign up</h2>
             <label>First name</label>
-            <input type="text" class="firstname" value="Ben" name="firstname">
+            <input type="text" class="firstname" id="signup-first" value="" name="firstname">
             <label>Last name</label>
-            <input type="text" class="lastname" value="Stankich" name="lastname">
+            <input type="text" class="lastname" id="signup-last" value="" name="lastname">
             <label>Username</label>
-            <input type="text" class="username" value="benstankich" name="username">
+            <input type="text" class="username" id="signup-username" value="" name="username">
             <label>Password</label>
-            <input type="password" class="password" value="" name="password">
-            <button>Create account</button>
+            <input type="password" class="password" id="signup-password" value="" name="password">
+            <button id="submit-signup" onclick="javascript:signup();">Create account</button>
             <div class="clearb"></div>
-        </form>
+        </div>
         <div class="clearb"></div>
 
-        <form action="mode.html" id="form-login" style="display:none;">
+        <div id="form-login" style="display:none;">
+            <!-- action="mode.html" -->
             <!-- <a class="close" id="closelogin" href="javascript:void();" onclick="toggleLogin();">&#10005;</a> -->
             <div class="clearb"></div>
             <h2>Log in</h2>
             <label>Username</label>
-            <input type="text" class="username" value="benstankich" name="username">
+            <input type="text" class="username" id="username-login" value="" name="username">
             <label>Password</label>
-            <input type="password" class="password" value="" name="password">
-            <button>Log in</button>
-        </form>
+            <input type="password" class="password" value="" name="password" id="password-login">
+            <button id="submit-login" onclick="javascript:login();" style="display:none;">Log in</button>
+            <button id="submit-login" onclick="javascript:login();">Log in</button>
+        </div>
         <div class="clearb"></div>
     </div>
     
