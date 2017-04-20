@@ -172,6 +172,8 @@ h1.pagetitle {
 	@include border-radius(3px);
 	@include border-box;
 	@include default-transition;
+	text-align: center;
+	cursor: pointer;
 
 	&:hover {
 		background: darken(blue, 5);
@@ -242,58 +244,52 @@ ul.topics {
 	}
 }
 
-.multichoice {
-	width: 70%;
-	margin: 2rem auto 0;
-
-	@include respond(600px) {
-		width: auto;
-	}
+.question {
 
 	ul {
 		@include plainul;
-		margin: 0;
 		padding: 0;
+		width: 70%;
+		margin: 2rem auto 0;
+
+		@include respond(600px) {
+			width: auto;
+		}
 
 		li {
 			clear: both;
 			padding: 1rem 0;
 			display: block;
 
-			a {
-				display: block;
-				// margin: 1rem 0;
+			.circle {
+				height: 1.5rem;
+				width: 1.5rem;
+				background: darken($gray,5);
+				@include default-transition;
+				@include border-radius(30px);
+				display: inline-block;
+				float: left;
 
-				.circle {
-					height: 1.5rem;
-					width: 1.5rem;
-					background: darken($gray,5);
-					@include default-transition;
-					@include border-radius(30px);
-					display: inline-block;
-					float: left;
-
-					&:hover {
-						background: $blue;
-					}
-
-					&:active {
-						background: $gray;
-						border: 7px solid $blue;
-						@include border-box;
-					}
+				&:hover {
+					background: $blue;
 				}
-				.circle.is-active {
+
+				&:active {
 					background: $gray;
 					border: 7px solid $blue;
 					@include border-box;
 				}
-				.answer {
-					// display: inline-block;
-					// float: left;
-					padding-top: 0.05rem;
-					padding-left: 2.25rem;
-				}
+			}
+			.circle.is-active {
+				background: $gray;
+				border: 7px solid $blue;
+				@include border-box;
+			}
+			.answer {
+				// display: inline-block;
+				// float: left;
+				padding-top: 0.05rem;
+				padding-left: 2.25rem;
 			}
 		}
 		li:first-of-type {
@@ -367,7 +363,7 @@ ul.results {
 		// }
 	}
 
-    form {
+    div {
     	margin: 0 auto;
     	padding: 1rem;
     	max-width: 270px;
@@ -411,4 +407,15 @@ ul.results {
     		cursor: pointer;
     	}
     }
+}
+
+
+
+#password-login {
+	border-color: darken($gray,20);
+	color: darken($gray, 55);
+}
+#password-login.is-active {
+	border-color: $red;
+	color: $red;
 }

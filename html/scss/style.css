@@ -270,7 +270,7 @@ h1.pagetitle {
   margin: 0 auto;
   display: block; }
 
-.button, .modal form button {
+.button, .modal div button {
   background: #445eef;
   color: #fff;
   padding: 1rem 0.5rem 0.9rem;
@@ -283,17 +283,19 @@ h1.pagetitle {
   -webkit-box-sizing: border-box;
   -webkit-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out; }
-  .button:hover, .modal form button:hover {
+  transition: all 0.1s ease-in-out;
+  text-align: center;
+  cursor: pointer; }
+  .button:hover, .modal div button:hover {
     background: #0000e6; }
 
-.button.full, .modal form button.full {
+.button.full, .modal div button.full {
   display: block;
   width: 100%;
   margin: 1rem auto;
   text-align: center; }
 
-.button.signup, .modal form button.signup, .button.login, .modal form button.login {
+.button.signup, .modal div button.signup, .button.login, .modal div button.login {
   width: 100%; }
 
 ul.topics {
@@ -333,55 +335,51 @@ ul.topics {
   .gameicons .questiondifficulty {
     text-align: right; }
 
-.multichoice {
+.question ul {
+  padding: 0;
+  list-style-type: none;
+  padding: 0;
   width: 70%;
   margin: 2rem auto 0; }
   @media screen and (max-width: 600px) {
-    .multichoice {
+    .question ul {
       width: auto; } }
-  .multichoice ul {
-    padding: 0;
-    list-style-type: none;
-    margin: 0;
-    padding: 0; }
-    .multichoice ul li {
-      clear: both;
-      padding: 1rem 0;
-      display: block; }
-      .multichoice ul li a {
-        display: block; }
-        .multichoice ul li a .circle {
-          height: 1.5rem;
-          width: 1.5rem;
-          background: #d9d9d9;
-          -webkit-transition: all 0.1s ease-in-out;
-          -o-transition: all 0.1s ease-in-out;
-          transition: all 0.1s ease-in-out;
-          -webkit-border-radius: 30px;
-          -moz-border-radius: 30px;
-          -ms-border-radius: 30px;
-          border-radius: 30px;
-          display: inline-block;
-          float: left; }
-          .multichoice ul li a .circle:hover {
-            background: #445eef; }
-          .multichoice ul li a .circle:active {
-            background: #e6e6e6;
-            border: 7px solid #445eef;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box; }
-        .multichoice ul li a .circle.is-active {
-          background: #e6e6e6;
-          border: 7px solid #445eef;
-          box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          -webkit-box-sizing: border-box; }
-        .multichoice ul li a .answer {
-          padding-top: 0.05rem;
-          padding-left: 2.25rem; }
-    .multichoice ul li:first-of-type {
-      padding-top: 0; }
+  .question ul li {
+    clear: both;
+    padding: 1rem 0;
+    display: block; }
+    .question ul li .circle {
+      height: 1.5rem;
+      width: 1.5rem;
+      background: #d9d9d9;
+      -webkit-transition: all 0.1s ease-in-out;
+      -o-transition: all 0.1s ease-in-out;
+      transition: all 0.1s ease-in-out;
+      -webkit-border-radius: 30px;
+      -moz-border-radius: 30px;
+      -ms-border-radius: 30px;
+      border-radius: 30px;
+      display: inline-block;
+      float: left; }
+      .question ul li .circle:hover {
+        background: #445eef; }
+      .question ul li .circle:active {
+        background: #e6e6e6;
+        border: 7px solid #445eef;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box; }
+    .question ul li .circle.is-active {
+      background: #e6e6e6;
+      border: 7px solid #445eef;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box; }
+    .question ul li .answer {
+      padding-top: 0.05rem;
+      padding-left: 2.25rem; }
+  .question ul li:first-of-type {
+    padding-top: 0; }
 
 ul.results {
   padding: 0;
@@ -435,21 +433,21 @@ ul.results {
     color: #a5a3a3;
     display: block;
     margin: 1rem 1rem 0 0; }
-  .modal form {
+  .modal div {
     margin: 0 auto;
     padding: 1rem;
     max-width: 270px; }
     @media screen and (max-width: 600px) {
-      .modal form {
+      .modal div {
         max-width: 270px;
         margin: 0 auto; } }
-    .modal form h2 {
+    .modal div h2 {
       margin: 0 0 1.25rem; }
-    .modal form label {
+    .modal div label {
       clear: left;
       display: inline-block;
       width: 80px; }
-    .modal form input {
+    .modal div input {
       background: none;
       border: 1px solid #b3b3b3;
       font-size: 1rem;
@@ -459,12 +457,20 @@ ul.results {
       -moz-box-sizing: border-box;
       -webkit-box-sizing: border-box;
       margin-bottom: .5rem; }
-      .modal form input:last-of-type {
+      .modal div input:last-of-type {
         margin-bottom: 0; }
-    .modal form button {
+    .modal div button {
       border: 0;
       font-size: 1rem;
       padding: .75rem 1rem;
       display: block;
       margin: 1rem auto 0;
       cursor: pointer; }
+
+#password-login {
+  border-color: #b3b3b3;
+  color: #5a5a5a; }
+
+#password-login.is-active {
+  border-color: #CB2C30;
+  color: #CB2C30; }
