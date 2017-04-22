@@ -221,6 +221,14 @@ ul.topics {
 			margin-bottom: 0;
 		}
 	}
+	li.addNew {
+		a {
+			background: $white;
+			border: 1px solid $blue;
+			@include border-radius(3px);
+			background: lighten($blue, 35);
+		}
+	}
 }
 
 
@@ -418,4 +426,104 @@ ul.results {
 #password-login.is-active {
 	border-color: $red;
 	color: $red;
+}
+
+.invite {
+	input {
+		background: none;
+		border: 1px solid darken($gray,20);
+		// @include border-radius(3px);
+		font-size: 1rem;
+		color: darken($gray, 55);
+		padding: .5rem .5rem;
+		@include border-box;
+		margin-bottom: .5rem;
+	}
+	button {
+		@extend .button;
+		border: 0;
+		font-size: 1rem;
+		padding: .58rem .7rem;
+		// text-align: center;
+		// display: block;
+		margin: 0.5rem 0.25rem;
+		cursor: pointer;
+	}
+}
+#multiplayerResults {
+	border: 1px solid $blue;
+	@include border-radius(3px);
+	width: auto;
+	background: lighten($blue, 35);
+	text-align: center;
+	padding: 1rem;
+	color: $blue;
+	font-size: 0.9rem;
+}
+
+#page-newtopic {
+	label {
+
+	}
+	input, textarea {
+		background: none;
+		border: 1px solid darken($gray,20);
+		@include border-radius(3px);
+		font-size: 1rem;
+		color: darken($gray, 55);
+		padding: .5rem .5rem;
+		@include border-box;
+		margin-bottom: .5rem;
+		width: 100%;
+	}
+	ul#sortable {
+		@include plainul;
+	}
+	.newtopic-question {
+		background: $gray;
+		margin: 0 0 1rem 0;
+		padding: 1rem;
+		@include border-radius(3px);
+
+		label.questionlabel {
+			font-weight: bold;
+		}
+
+		.newtopic-answer {
+			display: inline-block;
+			width: 47.5%;
+			float: left;
+			margin-right: 5%;
+
+			&:nth-of-type(2n) {
+				margin-right: 0;
+			}
+		}
+	}
+
+	button {
+		@extend .button;
+		border: 0;
+		font-size: 1rem;
+		padding: .58rem .7rem;
+		// text-align: center;
+		// display: block;
+		margin: 0rem;
+		cursor: pointer;
+	}
+	button.addquestion {
+		width: 100%;
+
+		background: $white;
+		border: 1px solid $blue;
+		@include border-radius(3px);
+		background: lighten($blue, 35);
+		color: $blue;
+		margin-bottom: 1rem;
+	}
+	button.submittopic {
+		text-align: center;
+		margin: 0 auto;
+		display: block;
+	}
 }

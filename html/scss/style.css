@@ -270,7 +270,7 @@ h1.pagetitle {
   margin: 0 auto;
   display: block; }
 
-.button, .modal div button {
+.button, .modal div button, .invite button, #page-newtopic button {
   background: #445eef;
   color: #fff;
   padding: 1rem 0.5rem 0.9rem;
@@ -286,16 +286,16 @@ h1.pagetitle {
   transition: all 0.1s ease-in-out;
   text-align: center;
   cursor: pointer; }
-  .button:hover, .modal div button:hover {
+  .button:hover, .modal div button:hover, .invite button:hover, #page-newtopic button:hover {
     background: #0000e6; }
 
-.button.full, .modal div button.full {
+.button.full, .modal div button.full, .invite button.full, #page-newtopic button.full {
   display: block;
   width: 100%;
   margin: 1rem auto;
   text-align: center; }
 
-.button.signup, .modal div button.signup, .button.login, .modal div button.login {
+.button.signup, .modal div button.signup, .invite button.signup, #page-newtopic button.signup, .button.login, .modal div button.login, .invite button.login, #page-newtopic button.login {
   width: 100%; }
 
 ul.topics {
@@ -321,6 +321,14 @@ ul.topics {
       margin-bottom: 0; }
   ul.topics li:last-of-type a {
     margin-bottom: 0; }
+  ul.topics li.addNew a {
+    background: #fff;
+    border: 1px solid #445eef;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    background: #e8ecfd; }
 
 .gameicons {
   font-size: 1.25rem; }
@@ -474,3 +482,90 @@ ul.results {
 #password-login.is-active {
   border-color: #CB2C30;
   color: #CB2C30; }
+
+.invite input {
+  background: none;
+  border: 1px solid #b3b3b3;
+  font-size: 1rem;
+  color: #5a5a5a;
+  padding: .5rem .5rem;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  margin-bottom: .5rem; }
+.invite button {
+  border: 0;
+  font-size: 1rem;
+  padding: .58rem .7rem;
+  margin: 0.5rem 0.25rem;
+  cursor: pointer; }
+
+#multiplayerResults {
+  border: 1px solid #445eef;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  width: auto;
+  background: #e8ecfd;
+  text-align: center;
+  padding: 1rem;
+  color: #445eef;
+  font-size: 0.9rem; }
+
+#page-newtopic input, #page-newtopic textarea {
+  background: none;
+  border: 1px solid #b3b3b3;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 1rem;
+  color: #5a5a5a;
+  padding: .5rem .5rem;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  margin-bottom: .5rem;
+  width: 100%; }
+#page-newtopic ul#sortable {
+  padding: 0;
+  list-style-type: none; }
+#page-newtopic .newtopic-question {
+  background: #e6e6e6;
+  margin: 0 0 1rem 0;
+  padding: 1rem;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px; }
+  #page-newtopic .newtopic-question label.questionlabel {
+    font-weight: bold; }
+  #page-newtopic .newtopic-question .newtopic-answer {
+    display: inline-block;
+    width: 47.5%;
+    float: left;
+    margin-right: 5%; }
+    #page-newtopic .newtopic-question .newtopic-answer:nth-of-type(2n) {
+      margin-right: 0; }
+#page-newtopic button {
+  border: 0;
+  font-size: 1rem;
+  padding: .58rem .7rem;
+  margin: 0rem;
+  cursor: pointer; }
+#page-newtopic button.addquestion {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #445eef;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  background: #e8ecfd;
+  color: #445eef;
+  margin-bottom: 1rem; }
+#page-newtopic button.submittopic {
+  text-align: center;
+  margin: 0 auto;
+  display: block; }

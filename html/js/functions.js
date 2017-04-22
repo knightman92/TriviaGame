@@ -13,20 +13,34 @@ $(document).ready(function(){
         if ( $(this).hasClass("is-correct") ) {
             addPoint();
             console.log(numCorrectUser1);
+
+            var audio = new Audio('audio/yay.mp3');
+            audio.play();
+            window.setTimeout(function () {
+                audio.pause();
+            }, 1500);
         } else {
             addQuestionIncorrect( $(this).data("set"), $(this).data("answer") );
             console.log("Wrong");
+
+            var audio = new Audio('audio/boo.mp3');
+            audio.play();
+            window.setTimeout(function () {
+                audio.pause();
+            }, 2000);
         }
 
         // if last question
         var question = $(this).data("set");
         var nextQuestion = $(this).data("set").substring(0,12) + (currentQuestion+1);
         if ( question.indexOf("20") >= 0 ) {
+            toggleBiology();
             toggleResults();
             // show results
             console.log("Show results");
             // reset current question counter
             currentQuestion = 1;
+            $("#numcorrect").html(0 + " ✔");
         } else {
             // next question hide/show
             console.log(nextQuestion);
@@ -97,6 +111,16 @@ function togglePageMode() {
     toggle_visibility("page-index");
     toggle_visibility("page-mode");
 }
+function toggleInvite() {
+    toggle_visibility("challengePlayer");
+}
+function challengePlayer() {
+    toggle_visibility("page-mode");
+    toggle_visibility("page-choosetopic");
+    toggle_visibility("multiplayerResults");
+    // something else
+    $("#multiplayerResults").html("Congratulations, you beat " + $("#invitedUser").val() + "'s score of 14");
+}
 function toggleChooseTopic() {
     toggle_visibility("page-mode");
     toggle_visibility("page-choosetopic");
@@ -118,6 +142,16 @@ function toggleChemistry() {
 function toggleRestart() {
     toggle_visibility("page-results");
     toggle_visibility("page-mode");
+    numCorrectUser1 = 0;
+}
+function createNewTopic() {
+    toggle_visibility("page-mode");
+    toggle_visibility("page-newtopic");
+}
+function backToTopics() {
+    toggle_visibility("page-newtopic");
+    toggle_visibility("page-mode");
+    toggle_visibility("chem2");
 }
 function toggleProfile() {
     toggle_visibility("page-profile");
@@ -151,10 +185,13 @@ function toggleSound() {
 function addPoint() {
     if ( $("body").data("set") == "user1" ) {
         numCorrectUser1++;
+        totalPoints1++;
     } else {
         numCorrectUser2++;
+        totalPoints1++;
     }
     $("#numcorrect").html(numCorrectUser1 + " ✔");
+    $("#profile-points").html(totalPoints1);
 }
 function addQuestionIncorrect(question, answer) {
     // console.log(question);
@@ -168,4 +205,7 @@ function changeUser() {
         $("#body").data("set", "user1");
         $("#body").attr("data-set", "user1");
     }
+}
+function newQuestion() {
+    toggle_visibility("newQuestion");
 }
