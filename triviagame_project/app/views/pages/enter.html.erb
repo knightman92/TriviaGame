@@ -1,0 +1,353 @@
+<html>
+<head>
+	<!-- Meta -->
+    <meta charset="UTF-8"/>
+    <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>Enter</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/icon.ico"/>
+    <!-- CSS -->
+    <!-- <link rel="stylesheet" media="all" type="text/css" href="scss/style.css"/> -->
+    <!-- Typekit, Google Analytics, jQuery, FitVids -->
+    <!-- jQuery -->
+    <!-- <script src="js/jquery-3.2.0.min.js"></script>
+    <script src="js/functions.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        var numCorrectUser1 = 0;
+        var totalPoints1 = 0;
+        var numCorrectUser2 = 0;
+        var totalPoints2 = 0;
+        var currentQuestion = 1;
+        var firstName;
+        var lastName;
+        var username;
+        var password;
+
+		$( function() {
+			$( "#sortable" ).sortable();
+			$( "#sortable" ).disableSelection();
+		} );
+    </script>
+</head>
+<body id="body" data-set="user1">
+    <div class="nav">
+        <!-- animation CSS from http://codepen.io/RRoberts/pen/ZBYaJr -->
+        <div class="menuwrapper">
+            <div class="hamburger" id="hamburger-1">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
+        </div>
+        <a href="enter.html" class="logo">Trivia Game - Admin View</a>
+    </div>
+    <div class="menu" id="menu">
+        <ul>
+            <li><a href="javascript:toggleProfile();">Account Profile</a></li>
+            <li><a href="javascript:toggleSound();" id="sound-state">Turn Sound on</a></li>
+        </ul>
+    </div>
+
+    <div class="contain half profile-screen" id="page-profile" style="display:none;">
+        <h1 class="pagetitle">User profile</h1>
+        <p>First name: <span id="profile-first"></span></p>
+        <p>Last name: <span id="profile-last"></span></p>
+        <p>Username: <span id="profile-username"></span></p>
+        <p>Password: <span id="profile-password"></span></p>
+        <p>Points: <span id="profile-points"></span></p>
+    </div>
+
+    <div class="contain half login-screen" style="display:block;" id="page-index">
+        <!-- <img src="http://placehold.it/350x300?text=LOGO+GOES+HERE" alt="Logo" class="logo"> -->
+        <p>Log in as an admin using credentials from the pre-made account created for you.</p>
+        <a href="javascript:void();" onclick="toggleLogin();" class="button full login">Log in</a>
+    </div>
+
+    
+	<div class="contain half mode-screen" style="display:none;" id="page-mode">
+        <h1 class="pagetitle">Trivia Topics</h1>
+        <ul class="topics">
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame(); toggleBiology();">
+                    <h2>Biology 1</h2>
+                    <p>Biology is a natural science concerned with the study of life and living organisms, including their structure, function, growth, evolution, distribution, identification and taxonomy.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Calculus 1</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Calculus 2</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame(); toggleChemistry();">
+                    <h2>Chemistry 1</h2>
+                    <p>Organic chemistry is the study of the structure, properties, composition, mechanisms, and reactions of organic compounds. An organic compound is defined as any compound based on a carbon skeleton.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame(); toggleChemistry();" id="chem2" style="display:none;">
+                    <h2>Chemistry 2</h2>
+                    <p>Lorem ipsum dolor.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>College Algebra</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Physics 1</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Physics 2</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Physics 3</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Processes for Object-Oriented Development</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>Programming Languages</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void();" onclick="togglePageGame();">
+                    <h2>U.S. History</h2>
+                    <p>Calculus is the mathematical study of continuous change, in the same way that geometry is the study of shape and algebra is the study of generalizations of arithmetic operations.</p>
+                </a>
+            </li>
+            <li class="addNew">
+            	<a href="javascript:void();" onclick="createNewTopic();">
+                    <h2>+ Create a New Topic</h2>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="contain half mode-screen" style="display:none;" id="page-newtopic">
+		<h1 class="pagetitle">Create a new Topic</h1>
+		<label>Title</label>
+		<div class="clearb"></div>
+		<input type="text">
+		<div class="clearb"></div>
+		<label>Description</label>
+		<div class="clearb"></div>
+		<textarea></textarea>
+
+		<ul id="sortable">
+			<li class="newtopic-question">
+				<label class="questionlabel">Question</label>
+				<div class="clearb"></div>
+				<input type="text">
+				<div class="clearb"></div>
+
+				<div class="newtopic-answer">
+					<label>Answer 1</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+
+				<div class="newtopic-answer">
+					<label>Answer 2</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+
+				<div class="newtopic-answer">
+					<label>Answer 3</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+
+				<div class="newtopic-answer">
+					<label>Answer 4</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+				<div class="clearb"></div>
+			</li>
+
+			<li class="newtopic-question">
+				<label class="questionlabel">Question</label>
+				<div class="clearb"></div>
+				<input type="text">
+				<div class="clearb"></div>
+
+				<div class="newtopic-answer">
+					<label>Answer 1</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+
+				<div class="newtopic-answer">
+					<label>Answer 2</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+
+				<div class="newtopic-answer">
+					<label>Answer 3</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+
+				<div class="newtopic-answer">
+					<label>Answer 4</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+				<div class="clearb"></div>
+			</li>
+
+			<li class="newtopic-question">
+				<label class="questionlabel">Question</label>
+				<div class="clearb"></div>
+				<input type="text">
+				<div class="clearb"></div>
+
+				<div class="newtopic-answer">
+					<label>Answer 1</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+
+				<div class="newtopic-answer">
+					<label>Answer 2</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+
+				<div class="newtopic-answer">
+					<label>Answer 3</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+
+				<div class="newtopic-answer">
+					<label>Answer 4</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+				<div class="clearb"></div>
+			</li>
+
+			<li class="newtopic-question" id="newQuestion" style="display:none;">
+				<label class="questionlabel">Question</label>
+				<div class="clearb"></div>
+				<input type="text">
+				<div class="clearb"></div>
+
+				<div class="newtopic-answer">
+					<label>Answer 1</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+
+				<div class="newtopic-answer">
+					<label>Answer 2</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+
+				<div class="newtopic-answer">
+					<label>Answer 3</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+
+				<div class="newtopic-answer">
+					<label>Answer 4</label>
+					<div class="clearb"></div>
+					<input type="text">
+					<div class="clearb"></div>
+				</div>
+				<div class="clearb"></div>
+			</li>
+
+			<button class="addquestion" onclick="javascript:newQuestion();">+ Add a question</button>
+
+			<button class="submittopic" onclick="javascript:backToTopics();">Save new topic</button>
+		</ul>
+
+
+
+    </div>
+
+
+    <div class="modal" id="modal" style="display:none;">
+        <a class="close" id="closemodal" href="javascript:void();" onclick="closeModal();">&#10005;</a>
+        <div id="form-signup" style="display:none;">
+            <!-- action="mode.html" -->
+            <div class="clearb"></div>
+            <h2>Sign up</h2>
+            <label>First name</label>
+            <input type="text" class="firstname" id="signup-first" value="" name="firstname">
+            <label>Last name</label>
+            <input type="text" class="lastname" id="signup-last" value="" name="lastname">
+            <label>Username</label>
+            <input type="text" class="username" id="signup-username" value="" name="username">
+            <label>Password</label>
+            <input type="password" class="password" id="signup-password" value="hello" name="password">
+            <button id="submit-signup" onclick="javascript:signup();">Create account</button>
+            <div class="clearb"></div>
+        </div>
+        <div class="clearb"></div>
+
+        <div id="form-login" style="display:none;">
+            <!-- action="mode.html" -->
+            <!-- <a class="close" id="closelogin" href="javascript:void();" onclick="toggleLogin();">&#10005;</a> -->
+            <div class="clearb"></div>
+            <h2>Log in</h2>
+            <label>Username</label>
+            <input type="text" class="username" id="username-login" value="" name="username">
+            <label>Password</label>
+            <input type="password" class="password" value="" name="password" id="password-login">
+            <button id="submit-login" onclick="javascript:login();" style="display:none;">Log in</button>
+            <button id="submit-login" onclick="javascript:login();">Log in</button>
+        </div>
+        <div class="clearb"></div>
+    </div>
+    
+	
+</body>
+</html>
